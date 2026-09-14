@@ -8,11 +8,11 @@ export function SectionHeader({
   action,
   href = "#",
 }: {
-  eyebrow?: string;
+  eyebrow?: string | undefined;
   title: string;
-  description?: string;
+  description?: string | undefined;
   action?: ReactNode;
-  href?: string;
+  href?: string | undefined;
 }) {
   return (
     <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
