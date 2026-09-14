@@ -1,24 +1,64 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
+import { HeroSlider } from "@/components/home/HeroSlider";
+import { FeaturedCategories } from "@/components/home/FeaturedCategories";
+import { FlashDeals } from "@/components/home/FlashDeals";
+import { ProductSection } from "@/components/home/ProductSection";
+import { FeaturedStores } from "@/components/home/FeaturedStores";
+import { PromoBanner } from "@/components/home/PromoBanner";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
+const title = "Marketplace — Shop 12,000+ Independent Sellers";
+const description =
+  "Discover trending products, flash deals and best sellers from verified independent stores. Free shipping over $75 and 30-day returns.";
+
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title },
+      { name: "description", content: description },
+      { property: "og:title", content: title },
+      { property: "og:description", content: description },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+    <div className="min-h-screen bg-background">
+      <Header />
+      <main>
+        <HeroSlider />
+        <FeaturedCategories />
+        <FlashDeals />
+        <ProductSection
+          filter="trending"
+          eyebrow="Popular now"
+          title="Trending products"
+          description="What shoppers are adding to cart this week."
+          href="/trending"
+        />
+        <ProductSection
+          filter="best-seller"
+          eyebrow="Proven"
+          title="Best sellers"
+          description="Highest-rated products across every department."
+          href="/best-sellers"
+        />
+        <FeaturedStores />
+        <PromoBanner />
+        <ProductSection
+          filter="new"
+          eyebrow="Just landed"
+          title="New arrivals"
+          description="Fresh listings from stores you'll want to follow."
+          href="/new"
+        />
+      </main>
+      <Footer />
     </div>
   );
 }
