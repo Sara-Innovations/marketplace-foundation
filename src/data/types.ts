@@ -4,6 +4,8 @@ export type Category = {
   slug: string;
   image: string;
   itemCount: number;
+  description?: string;
+  banner?: string;
   children?: string[];
 };
 
@@ -20,23 +22,51 @@ export type Vendor = {
   followers: number;
   verified: boolean;
   tagline: string;
+  about?: string;
+  since?: number;
 };
+
+export type Spec = { label: string; value: string };
 
 export type Product = {
   id: string;
   name: string;
   slug: string;
   image: string;
+  images: string[];
   price: number;
   compareAtPrice?: number;
   rating: number;
   reviewCount: number;
   categoryId: string;
+  subcategory: string;
+  brand: string;
   vendorId: string;
+  sku: string;
   sold: number;
   stock: number;
   freeShipping: boolean;
+  createdAt: string;
+  description: string;
+  highlights: string[];
+  specs: Spec[];
+  colors: string[];
+  sizes: string[];
   tags: ("trending" | "best-seller" | "new" | "flash")[];
+};
+
+export type Review = {
+  id: string;
+  productId: string;
+  author: string;
+  avatar: string;
+  rating: number;
+  title: string;
+  body: string;
+  date: string;
+  verified: boolean;
+  helpful: number;
+  images: string[];
 };
 
 export type FlashSale = {
