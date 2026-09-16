@@ -296,4 +296,71 @@ const seeds: Seed[] = [
   },
 ];
 
-export const products: Product[] = seeds.map((s) => ({ ...s, slug: slugify(s.name) }));
+const BRANDS: Record<string, string[]> = {
+  "cat-electronics": ["Halo Audio", "Circuit Pro", "Nordvolt"],
+  "cat-fashion": ["Atelier Nord", "Rue Ono", "Kinetic"],
+  "cat-home": ["Terra Home", "Oakfield", "Loom & Ash"],
+  "cat-beauty": ["Lumen Lab", "Verdé", "Aurelia"],
+  "cat-sports": ["Kinetic", "Summit Line", "Trailhead"],
+  "cat-grocery": ["Bean Republic", "Harvest Row"],
+  "cat-toys": ["Blockworks", "Playfield"],
+  "cat-auto": ["Driveline", "Apex Garage"],
+};
+
+const SUBCATEGORIES: Record<string, string[]> = {
+  "cat-electronics": ["Audio", "Phones", "Laptops", "Cameras", "Wearables"],
+  "cat-fashion": ["Men", "Women", "Shoes", "Bags", "Watches"],
+  "cat-home": ["Furniture", "Kitchen", "Decor", "Lighting"],
+  "cat-beauty": ["Skincare", "Fragrance", "Makeup"],
+  "cat-sports": ["Fitness", "Running", "Camping"],
+  "cat-toys": ["Board Games", "Building", "Outdoor Play"],
+  "cat-grocery": ["Coffee", "Snacks", "Organic"],
+  "cat-auto": ["Accessories", "Care", "Tools"],
+};
+
+const COLOR_SETS = [
+  ["Midnight", "Sand", "Sage"],
+  ["Black", "Silver", "Blush"],
+  ["Natural Oak", "Charcoal", "Ivory"],
+];
+
+const SIZE_SETS: Record<string, string[]> = {
+  "cat-fashion": ["XS", "S", "M", "L", "XL"],
+  "cat-sports": ["S", "M", "L", "XL"],
+};
+
+const gallery = ["photo-1523275335684-37898b6baf30", "photo-1526170375885-4d8ecf77b99f", "photo-1560343090-f0409e92791a"];
+
+export const products: Product[] = seeds.map((s, i) => {
+  const brands = BRANDS[s.categoryId] ?? ["Marketplace"];
+  const subs = SUBCATEGORIES[s.categoryId] ?? ["General"];
+  const sizes = SIZE_SETS[s.categoryId] ?? [];
+  const created = new Date(Date.UTC(2026, 8, 15) - i * 6 * 86400000).toISOString();
+
+  return {
+    ...s,
+    slug: slugify(s.name),
+    brand: brands[i % brands.length]!,
+    subcategory: subs[i % subs.length]!,
+    sku: `MK-${s.id.replace("p-", "")}-${s.categoryId.slice(4, 8).toUpperCase()}`,
+    createdAt: created,
+    images: [s.image, ...gallery.map((g, gi) => img(gallery[(i + gi) % gallery.length] ?? g))],
+    description: `${s.name} from a verified marketplace seller. Designed for everyday use with a focus on durable materials, honest pricing and a finish that still looks good after a year of real wear. Every order is quality-checked before dispatch and backed by our 30-day return promise.`,
+    highlights: [
+      "Quality-checked before dispatch",
+      "30-day free returns",
+      s.freeShipping ? "Free shipping included" : "Flat-rate shipping from $6.95",
+      "1-year seller warranty",
+    ],
+    specs: [
+      { label: "Brand", value: brands[i % brands.length]! },
+      { label: "Model", value: `MK-${s.id.replace("p-", "")}` },
+      { label: "Category", value: subs[i % subs.length]! },
+      { label: "Warranty", value: "12 months" },
+      { label: "Ships from", value: "Regional fulfilment hub" },
+      { label: "Weight", value: `${(0.4 + (i % 7) * 0.35).toFixed(2)} kg` },
+    ],
+    colors: COLOR_SETS[i % COLOR_SETS.length]!,
+    sizes,
+  };
+});
