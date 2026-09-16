@@ -8,7 +8,20 @@ const slugify = (name: string) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
 
-type Seed = Omit<Product, "slug">;
+type Seed = Omit<
+  Product,
+  | "slug"
+  | "images"
+  | "subcategory"
+  | "brand"
+  | "sku"
+  | "createdAt"
+  | "description"
+  | "highlights"
+  | "specs"
+  | "colors"
+  | "sizes"
+>;
 
 const seeds: Seed[] = [
   {
