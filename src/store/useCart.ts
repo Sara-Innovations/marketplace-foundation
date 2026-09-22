@@ -1,41 +1,60 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
+export type CartItem = {
+  id: string; // e.g. productId-color-size
+  productId: string;
+  quantity: number;
+  color?: string;
+  size?: string;
+};
+
 type CartState = {
-  items: Record<string, number>;
+  items: CartItem[];
   wishlist: string[];
-  addItem: (productId: string, quantity?: number) => void;
-  removeItem: (productId: string) => void;
-  setQuantity: (productId: string, quantity: number) => void;
+  coupon: string | null;
+  addItem: (item: Omit<CartItem, "id"> & { id?: string }) => void;
+  removeItem: (id: string) => void;
+  setQuantity: (id: string, quantity: number) => void;
   clear: () => void;
+  setCoupon: (code: string | null) => void;
   toggleWishlist: (productId: string) => void;
 };
 
 export const useCart = create<CartState>()(
   persist(
     (set) => ({
-      items: {},
+      items: [],
       wishlist: [],
-      addItem: (productId, quantity = 1) =>
-        set((s) => ({
-          items: { ...s.items, [productId]: (s.items[productId] ?? 0) + quantity },
-        })),
-      removeItem: (productId) =>
+      coupon: null,
+      addItem: (item) =>
         set((s) => {
-          const next = { ...s.items };
-          delete next[productId];
-          return { items: next };
+          const id = item.id || `${item.productId}-${item.color || ""}-${item.size || ""}`;
+          const existing = s.items.find((i) => i.id === id);
+          if (existing) {
+            return {
+              items: s.items.map((i) =>
+                i.id === id ? { ...i, quantity: i.quantity + item.quantity } : i,
+              ),
+            };
+          }
+          return { items: [...s.items, { ...item, id }] };
         }),
-      setQuantity: (productId, quantity) =>
+      removeItem: (id) =>
+        set((s) => ({
+          items: s.items.filter((i) => i.id !== id),
+        })),
+      setQuantity: (id, quantity) =>
         set((s) => {
           if (quantity <= 0) {
-            const next = { ...s.items };
-            delete next[productId];
-            return { items: next };
+            return { items: s.items.filter((i) => i.id !== id) };
           }
-          return { items: { ...s.items, [productId]: quantity } };
+          return {
+            items: s.items.map((i) => (i.id === id ? { ...i, quantity } : i)),
+          };
         }),
-      clear: () => set({ items: {} }),
+      clear: () => set({ items: [], coupon: null }),
+      setCoupon: (code) => set({ coupon: code }),
       toggleWishlist: (productId) =>
         set((s) => ({
           wishlist: s.wishlist.includes(productId)
@@ -43,11 +62,16 @@ export const useCart = create<CartState>()(
             : [...s.wishlist, productId],
         })),
     }),
-    { name: "marketplace-cart" },
+    {
+      name: "marketplace-cart",
+      version: 1, // bump version to bust old persisted object state
+    },
   ),
 );
 
 export const useCartCount = () =>
-  useCart((s) => Object.values(s.items).reduce((sum, q) => sum + q, 0));
+  useCart((s) =>
+    Array.isArray(s.items) ? s.items.reduce((sum, item) => sum + item.quantity, 0) : 0,
+  );
 
 export const useWishlistCount = () => useCart((s) => s.wishlist.length);

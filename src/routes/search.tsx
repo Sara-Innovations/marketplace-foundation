@@ -30,8 +30,7 @@ export const Route = createFileRoute("/search")({
 function SearchPage() {
   const search = Route.useSearch();
   const navigate = useNavigate({ from: Route.fullPath });
-  const onChange = (patch: FilterPatch) =>
-    navigate({ search: (prev) => ({ ...prev, ...patch }) });
+  const onChange = (patch: FilterPatch) => navigate({ search: (prev) => ({ ...prev, ...patch }) });
 
   return (
     <PageShell>

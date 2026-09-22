@@ -2,12 +2,7 @@ import { Star } from "lucide-react";
 import type { CatalogResult } from "@/api/catalog";
 import { formatPrice } from "@/lib/format";
 import { cn } from "@/lib/utils";
-import {
-  activeFilterCount,
-  toList,
-  toggleInCsv,
-  type CatalogSearch,
-} from "@/lib/search-params";
+import { activeFilterCount, toList, toggleInCsv, type CatalogSearch } from "@/lib/search-params";
 
 export type FilterPatch = Partial<CatalogSearch>;
 
@@ -129,7 +124,9 @@ export function FilterSidebar({
             return (
               <Check
                 key={`${min}-${max}`}
-                label={max === 0 ? `${formatPrice(min)}+` : `${formatPrice(min)} – ${formatPrice(max)}`}
+                label={
+                  max === 0 ? `${formatPrice(min)}+` : `${formatPrice(min)} – ${formatPrice(max)}`
+                }
                 checked={checked}
                 onChange={() =>
                   onChange(checked ? { min: 0, max: 0, page: 1 } : { min, max, page: 1 })
@@ -191,7 +188,10 @@ export function FilterSidebar({
                 {[0, 1, 2, 3, 4].map((i) => (
                   <Star
                     key={i}
-                    className={cn("size-3.5", i < Math.round(r) ? "fill-primary text-primary" : "text-border")}
+                    className={cn(
+                      "size-3.5",
+                      i < Math.round(r) ? "fill-primary text-primary" : "text-border",
+                    )}
                     strokeWidth={1.5}
                   />
                 ))}

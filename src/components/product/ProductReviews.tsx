@@ -21,9 +21,7 @@ export function ProductReviews({ productId }: { productId: string }) {
             {(data?.average ?? 0).toFixed(1)}
           </p>
           <Rating value={data?.average ?? 0} className="mt-2 justify-center sm:justify-start" />
-          <p className="mt-1 text-sm text-muted-foreground">
-            Based on {data?.total ?? 0} reviews
-          </p>
+          <p className="mt-1 text-sm text-muted-foreground">Based on {data?.total ?? 0} reviews</p>
           <button
             type="button"
             onClick={() => toast("Review form coming soon")}
@@ -38,7 +36,10 @@ export function ProductReviews({ productId }: { productId: string }) {
             <div key={b.stars} className="flex items-center gap-3 text-xs text-muted-foreground">
               <span className="w-10 shrink-0 tabular-nums">{b.stars} star</span>
               <div className="h-2 flex-1 overflow-hidden rounded-full bg-muted">
-                <div className="h-full rounded-full bg-primary" style={{ width: `${b.percent}%` }} />
+                <div
+                  className="h-full rounded-full bg-primary"
+                  style={{ width: `${b.percent}%` }}
+                />
               </div>
               <span className="w-8 shrink-0 text-right tabular-nums">{b.count}</span>
             </div>

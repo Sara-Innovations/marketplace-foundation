@@ -22,7 +22,9 @@ export function getProductBySlug(slug: string): Promise<Product | undefined> {
 }
 
 export function getProductsByIds(ids: string[]): Promise<Product[]> {
-  return mockRequest(ids.map((id) => products.find((p) => p.id === id)).filter(Boolean) as Product[]);
+  return mockRequest(
+    ids.map((id) => products.find((p) => p.id === id)).filter(Boolean) as Product[],
+  );
 }
 
 export function searchProducts(term: string): Promise<Product[]> {

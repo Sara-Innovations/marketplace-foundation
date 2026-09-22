@@ -81,7 +81,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: "Marketplace — Shop Independent Sellers" },
       {
         name: "description",
-        content: "A curated multi-vendor marketplace with flash deals, trending products and verified stores.",
+        content:
+          "A curated multi-vendor marketplace with flash deals, trending products and verified stores.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -120,6 +121,8 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
+import { FloatingCartDrawer } from "../components/commerce/FloatingCartDrawer";
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
@@ -127,6 +130,7 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
+      <FloatingCartDrawer />
       <Toaster position="top-center" richColors />
     </QueryClientProvider>
   );

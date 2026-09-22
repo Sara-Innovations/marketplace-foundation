@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ArrowRight, ChevronLeft, ChevronRight, ShieldCheck, Truck, Undo2 } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const slides = [
@@ -32,11 +32,7 @@ const slides = [
   },
 ];
 
-const perks = [
-  { icon: Truck, title: "Free shipping", copy: "On orders over $75" },
-  { icon: Undo2, title: "30-day returns", copy: "No questions asked" },
-  { icon: ShieldCheck, title: "Buyer protection", copy: "Every verified seller" },
-];
+
 
 export function HeroSlider() {
   const [index, setIndex] = useState(0);
@@ -49,104 +45,73 @@ export function HeroSlider() {
   const go = (dir: number) => setIndex((i) => (i + dir + slides.length) % slides.length);
 
   return (
-    <section className="shell pt-6">
-      <div className="grid gap-4 lg:grid-cols-[1fr_320px]">
-        <div className="relative overflow-hidden rounded-2xl border border-border bg-ink shadow-card">
-          <div className="relative h-[320px] sm:h-[380px] lg:h-[440px]">
-            {slides.map((s, i) => (
-              <div
-                key={s.id}
-                className={cn(
-                  "absolute inset-0 transition-opacity duration-700",
-                  i === index ? "opacity-100" : "pointer-events-none opacity-0",
-                )}
-              >
-                <img
-                  src={s.image}
-                  alt=""
-                  className="size-full object-cover"
-                  loading={i === 0 ? "eager" : "lazy"}
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-ink/90 via-ink/70 to-ink/10" />
-                <div className="absolute inset-0 flex max-w-xl flex-col justify-center gap-4 p-8 sm:p-12">
-                  <span className="w-fit rounded-full bg-primary px-3 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-primary-foreground">
-                    {s.eyebrow}
-                  </span>
-                  <h1 className="text-3xl font-bold leading-tight text-ink-foreground sm:text-4xl lg:text-5xl">
-                    {s.title}
-                  </h1>
-                  <p className="max-w-md text-sm text-ink-foreground/80 sm:text-base">{s.copy}</p>
-                  <a
-                    href="/deals"
-                    className="group mt-2 flex w-fit items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
-                  >
-                    {s.cta}
-                    <ArrowRight
-                      className="size-4 transition-transform group-hover:translate-x-1"
-                      strokeWidth={2}
-                    />
-                  </a>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <button
-            type="button"
-            aria-label="Previous slide"
-            onClick={() => go(-1)}
-            className="absolute left-3 top-1/2 grid size-10 -translate-y-1/2 place-items-center rounded-full bg-background/80 text-foreground backdrop-blur transition-colors hover:bg-background"
+    <section className="relative w-full">
+      <div className="relative h-[480px] sm:h-[600px] lg:h-[700px] w-full">
+        {slides.map((s, i) => (
+          <div
+            key={s.id}
+            className={cn(
+              "absolute inset-0 transition-opacity duration-700",
+              i === index ? "opacity-100" : "pointer-events-none opacity-0",
+            )}
           >
-            <ChevronLeft className="size-5" strokeWidth={2} />
-          </button>
-          <button
-            type="button"
-            aria-label="Next slide"
-            onClick={() => go(1)}
-            className="absolute right-3 top-1/2 grid size-10 -translate-y-1/2 place-items-center rounded-full bg-background/80 text-foreground backdrop-blur transition-colors hover:bg-background"
-          >
-            <ChevronRight className="size-5" strokeWidth={2} />
-          </button>
-          <div className="absolute bottom-5 left-8 flex gap-2 sm:left-12">
-            {slides.map((s, i) => (
-              <button
-                key={s.id}
-                type="button"
-                aria-label={`Go to slide ${i + 1}`}
-                onClick={() => setIndex(i)}
-                className={cn(
-                  "h-1.5 rounded-full transition-all",
-                  i === index ? "w-8 bg-primary" : "w-3 bg-ink-foreground/40",
-                )}
-              />
-            ))}
-          </div>
-        </div>
-
-        <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1">
-          <a
-            href="/deals"
-            className="flex flex-col justify-between rounded-2xl border border-border bg-card p-5 shadow-card transition-shadow hover:shadow-lift sm:col-span-2 lg:col-span-1"
-          >
-            <span className="text-xs font-bold uppercase tracking-[0.16em] text-sale">
-              Today only
-            </span>
-            <p className="mt-2 text-lg font-bold leading-snug">Extra 15% off flash deals</p>
-            <p className="mt-1 text-sm text-muted-foreground">Code FLASH15 at checkout</p>
-          </a>
-          {perks.map((p) => (
-            <div
-              key={p.title}
-              className="flex items-center gap-3 rounded-2xl border border-border bg-card p-4 shadow-card"
-            >
-              <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-surface text-primary">
-                <p.icon className="size-5" strokeWidth={1.8} />
+            <img
+              src={s.image}
+              alt=""
+              className="size-full object-cover"
+              loading={i === 0 ? "eager" : "lazy"}
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
+            <div className="absolute inset-0 flex flex-col justify-center px-6 sm:px-12 lg:px-24 xl:px-32 max-w-4xl gap-4">
+              <span className="w-fit rounded-full bg-primary px-4 py-1.5 text-xs font-bold uppercase tracking-[0.14em] text-primary-foreground">
+                {s.eyebrow}
               </span>
-              <div>
-                <p className="text-sm font-semibold">{p.title}</p>
-                <p className="text-xs text-muted-foreground">{p.copy}</p>
-              </div>
+              <h1 className="text-3xl font-bold leading-tight text-white sm:text-5xl lg:text-6xl">
+                {s.title}
+              </h1>
+              <p className="max-w-md text-base text-white/90 sm:text-lg">{s.copy}</p>
+              <a
+                href="/deals"
+                className="group mt-4 flex w-fit items-center gap-2 rounded-full bg-primary px-8 py-3.5 text-base font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+              >
+                {s.cta}
+                <ArrowRight
+                  className="size-4 transition-transform group-hover:translate-x-1"
+                  strokeWidth={2}
+                />
+              </a>
             </div>
+          </div>
+        ))}
+
+        <button
+          type="button"
+          aria-label="Previous slide"
+          onClick={() => go(-1)}
+          className="absolute left-4 top-1/2 grid size-12 -translate-y-1/2 place-items-center rounded-full bg-black/20 text-white backdrop-blur transition-colors hover:bg-black/40 sm:left-6"
+        >
+          <ChevronLeft className="size-6" strokeWidth={2} />
+        </button>
+        <button
+          type="button"
+          aria-label="Next slide"
+          onClick={() => go(1)}
+          className="absolute right-4 top-1/2 grid size-12 -translate-y-1/2 place-items-center rounded-full bg-black/20 text-white backdrop-blur transition-colors hover:bg-black/40 sm:right-6"
+        >
+          <ChevronRight className="size-6" strokeWidth={2} />
+        </button>
+        <div className="absolute bottom-24 left-6 flex gap-2 sm:left-12 lg:left-24 xl:left-32">
+          {slides.map((s, i) => (
+            <button
+              key={s.id}
+              type="button"
+              aria-label={`Go to slide ${i + 1}`}
+              onClick={() => setIndex(i)}
+              className={cn(
+                "h-1.5 rounded-full transition-all",
+                i === index ? "w-8 bg-primary" : "w-3 bg-white/40",
+              )}
+            />
           ))}
         </div>
       </div>

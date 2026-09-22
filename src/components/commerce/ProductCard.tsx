@@ -73,8 +73,9 @@ export function ProductCard({
   const addToCart = (
     <button
       type="button"
-      onClick={() => {
-        addItem(product.id);
+      onClick={(e) => {
+        e.preventDefault();
+        addItem({ productId: product.id, quantity: 1 });
         toast.success("Added to cart", { description: product.name });
       }}
       className="flex items-center justify-center gap-2 rounded-lg bg-primary px-3 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"

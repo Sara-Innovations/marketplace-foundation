@@ -15,7 +15,9 @@ export function ProductGallery({ images, alt }: { images: string[]; alt: string 
         className="relative aspect-square flex-1 overflow-hidden rounded-xl border border-border bg-surface"
         onMouseMove={(e) => {
           const r = e.currentTarget.getBoundingClientRect();
-          setOrigin(`${((e.clientX - r.left) / r.width) * 100}% ${((e.clientY - r.top) / r.height) * 100}%`);
+          setOrigin(
+            `${((e.clientX - r.left) / r.width) * 100}% ${((e.clientY - r.top) / r.height) * 100}%`,
+          );
         }}
         onMouseEnter={() => setZoom(true)}
         onMouseLeave={() => setZoom(false)}

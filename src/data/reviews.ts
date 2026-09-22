@@ -70,6 +70,4 @@ function makeReviews(productId: string, seed: number, rating: number): Review[] 
   });
 }
 
-export const reviews: Review[] = products.flatMap((p, i) =>
-  makeReviews(p.id, i + 3, p.rating),
-);
+export const reviews: Review[] = products.flatMap((p, i) => makeReviews(p.id, i + 3, p.rating));

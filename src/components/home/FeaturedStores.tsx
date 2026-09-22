@@ -22,7 +22,10 @@ export function FeaturedStores() {
         {data
           ? data.map((v) => <StoreCard key={v.id} vendor={v} />)
           : Array.from({ length: 4 }).map((_, i) => (
-              <div key={i} className="h-72 animate-pulse rounded-xl border border-border bg-muted" />
+              <div
+                key={i}
+                className="h-72 animate-pulse rounded-xl border border-border bg-muted"
+              />
             ))}
       </div>
     </section>

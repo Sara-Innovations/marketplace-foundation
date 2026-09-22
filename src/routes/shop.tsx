@@ -27,8 +27,7 @@ export const Route = createFileRoute("/shop")({
 function ShopPage() {
   const search = Route.useSearch();
   const navigate = useNavigate({ from: Route.fullPath });
-  const onChange = (patch: FilterPatch) =>
-    navigate({ search: (prev) => ({ ...prev, ...patch }) });
+  const onChange = (patch: FilterPatch) => navigate({ search: (prev) => ({ ...prev, ...patch }) });
 
   return (
     <PageShell>

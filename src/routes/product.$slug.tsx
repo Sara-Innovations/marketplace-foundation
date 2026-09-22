@@ -158,7 +158,9 @@ function ProductPage() {
                       onClick={() => setColor(c)}
                       className={cn(
                         "rounded-lg border px-3.5 py-2 text-sm font-medium transition-colors",
-                        color === c ? "border-primary bg-surface" : "border-border hover:bg-surface",
+                        color === c
+                          ? "border-primary bg-surface"
+                          : "border-border hover:bg-surface",
                       )}
                     >
                       {c}
@@ -216,7 +218,12 @@ function ProductPage() {
                 type="button"
                 disabled={!inStock}
                 onClick={() => {
-                  addItem(product.id, qty);
+                  addItem({
+                    productId: product.id,
+                    quantity: qty,
+                    color: color || undefined,
+                    size: size || undefined,
+                  });
                   toast.success("Added to cart", { description: `${product.name} × ${qty}` });
                 }}
                 className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-50"
@@ -228,7 +235,12 @@ function ProductPage() {
                 type="button"
                 disabled={!inStock}
                 onClick={() => {
-                  addItem(product.id, qty);
+                  addItem({
+                    productId: product.id,
+                    quantity: qty,
+                    color: color || undefined,
+                    size: size || undefined,
+                  });
                   toast.success("Checkout opens in the next phase");
                 }}
                 className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-ink px-5 py-3 text-sm font-semibold text-ink-foreground transition-opacity hover:opacity-90 disabled:opacity-50"

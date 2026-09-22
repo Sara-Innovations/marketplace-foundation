@@ -95,7 +95,10 @@ function countBy(list: Product[], pick: (p: Product) => string): Map<string, num
   return map;
 }
 
-export function queryCatalog(search: CatalogSearch, scope: CatalogScope = {}): Promise<CatalogResult> {
+export function queryCatalog(
+  search: CatalogSearch,
+  scope: CatalogScope = {},
+): Promise<CatalogResult> {
   const base = baseSet(scope);
   const filtered = base.filter((p) => matches(p, search));
   const sorted = sortProducts(filtered, search.sort);
@@ -148,7 +151,11 @@ export function getSuggestions(term: string): Promise<Suggestions> {
         .filter((p) => `${p.name} ${p.brand}`.toLowerCase().includes(q))
         .slice(0, 5),
       categories: categories
-        .filter((c) => c.name.toLowerCase().includes(q) || c.children?.some((ch) => ch.toLowerCase().includes(q)))
+        .filter(
+          (c) =>
+            c.name.toLowerCase().includes(q) ||
+            c.children?.some((ch) => ch.toLowerCase().includes(q)),
+        )
         .slice(0, 4)
         .map((c) => ({ name: c.name, slug: c.slug })),
       vendors: vendors

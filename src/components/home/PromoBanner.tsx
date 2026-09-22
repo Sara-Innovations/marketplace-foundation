@@ -19,7 +19,10 @@ export function PromoBanner() {
             className="group flex w-fit items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
           >
             Start selling
-            <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" strokeWidth={2} />
+            <ArrowRight
+              className="size-4 transition-transform group-hover:translate-x-1"
+              strokeWidth={2}
+            />
           </a>
         </div>
         <div className="relative min-h-56">

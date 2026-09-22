@@ -53,8 +53,7 @@ function CategoryPage() {
   const { category } = Route.useLoaderData();
   const search = Route.useSearch();
   const navigate = useNavigate({ from: Route.fullPath });
-  const onChange = (patch: FilterPatch) =>
-    navigate({ search: (prev) => ({ ...prev, ...patch }) });
+  const onChange = (patch: FilterPatch) => navigate({ search: (prev) => ({ ...prev, ...patch }) });
   const activeSubs = toList(search.sub);
 
   return (

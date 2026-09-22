@@ -42,12 +42,14 @@ export function FrequentlyBought({ items }: { items: Product[] }) {
           <button
             type="button"
             onClick={() => {
-              items.forEach((p) => addItem(p.id));
-              toast.success("Bundle added to cart");
+              items.forEach((item) => addItem({ productId: item.id, quantity: 1 }));
+              toast.success("Added bundle to cart", {
+                description: `${items.length} items added successfully`,
+              });
             }}
-            className="mt-2 w-full rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 lg:w-auto"
+            className="flex w-full items-center justify-center gap-2 rounded-lg bg-primary py-2.5 text-sm font-semibold text-primary-foreground hover:bg-primary/90"
           >
-            Add all {items.length} to cart
+            Add all to cart
           </button>
         </div>
       </div>

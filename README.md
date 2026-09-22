@@ -1,6 +1,7 @@
 # Marketplace Foundation
 
 Build Phase 1 of a modern multi-vendor e-commerce storefront (customer-facing only):
+
 - Project foundation with React, Vite, TypeScript, Tailwind CSS, Lucide React, Zustand, and TanStack Query.
 - Clean, premium marketplace design system (typography, spacing, responsive layout, subtle shadows, clean borders).
 - Sticky responsive header (desktop announcement bar, main navigation with search bar, categories menu, cart/wishlist counters, account menu; mobile drawer & search).

@@ -24,7 +24,8 @@ export function summarizeCart(items: CartItem[]): CartSummary {
 
   const subtotal = lines.reduce((sum, l) => sum + l.lineTotal, 0);
   const savings = lines.reduce(
-    (sum, l) => sum + ((l.product.compareAtPrice ?? l.product.price) - l.product.price) * l.quantity,
+    (sum, l) =>
+      sum + ((l.product.compareAtPrice ?? l.product.price) - l.product.price) * l.quantity,
     0,
   );
   const itemCount = lines.reduce((sum, l) => sum + l.quantity, 0);

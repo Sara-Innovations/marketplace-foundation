@@ -18,7 +18,9 @@ export function FlashDeals() {
               <Zap className="size-5 fill-current" strokeWidth={1.5} />
             </span>
             <div>
-              <h2 className="text-2xl font-bold sm:text-3xl">{data?.sale.title ?? "Flash Deals"}</h2>
+              <h2 className="text-2xl font-bold sm:text-3xl">
+                {data?.sale.title ?? "Flash Deals"}
+              </h2>
               <p className="text-sm text-muted-foreground">
                 {data?.sale.subtitle ?? "Limited-time markdowns from verified sellers."}
               </p>
@@ -28,11 +30,13 @@ export function FlashDeals() {
         </div>
 
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
-          {data
-            ? data.products.slice(0, 5).map((p) => (
-                <ProductCard key={p.id} product={p} showProgress />
-              ))
-            : <ProductSkeletonGrid />}
+          {data ? (
+            data.products
+              .slice(0, 5)
+              .map((p) => <ProductCard key={p.id} product={p} showProgress />)
+          ) : (
+            <ProductSkeletonGrid />
+          )}
         </div>
       </div>
     </section>

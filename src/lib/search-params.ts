@@ -70,7 +70,10 @@ export function validateCatalogSearch(input: Record<string, unknown>): CatalogSe
 }
 
 export const toList = (csv: string): string[] =>
-  csv.split(",").map((s) => s.trim()).filter(Boolean);
+  csv
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean);
 
 export const toggleInCsv = (csv: string, value: string): string => {
   const list = toList(csv);

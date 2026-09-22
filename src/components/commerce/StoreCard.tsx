@@ -21,8 +21,13 @@ export function StoreCard({ vendor, className }: { vendor: Vendor; className?: s
         />
       </div>
       <div className="px-4 pb-4">
-        <div className="-mt-8 mb-3 size-16 overflow-hidden rounded-xl border-4 border-card bg-surface">
-          <img src={vendor.logo} alt={vendor.name} loading="lazy" className="size-full object-cover" />
+        <div className="relative z-10 -mt-8 mb-3 size-16 overflow-hidden rounded-xl border-4 border-card bg-surface">
+          <img
+            src={vendor.logo}
+            alt={vendor.name}
+            loading="lazy"
+            className="size-full object-cover"
+          />
         </div>
         <div className="flex items-center gap-1">
           <h3 className="text-sm font-semibold text-foreground">{vendor.name}</h3>

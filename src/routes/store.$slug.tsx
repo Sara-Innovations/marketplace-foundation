@@ -62,8 +62,7 @@ function StorePage() {
   const { vendor, count, storeCategories } = Route.useLoaderData();
   const search = Route.useSearch();
   const navigate = useNavigate({ from: Route.fullPath });
-  const onChange = (patch: FilterPatch) =>
-    navigate({ search: (prev) => ({ ...prev, ...patch }) });
+  const onChange = (patch: FilterPatch) => navigate({ search: (prev) => ({ ...prev, ...patch }) });
   const activeCats = toList(search.cat);
 
   return (

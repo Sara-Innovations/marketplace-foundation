@@ -47,12 +47,7 @@ export function CatalogBrowser({
     <div className="flex gap-8">
       <div className="hidden w-64 shrink-0 lg:block">
         <div className="sticky top-32">
-          <FilterSidebar
-            search={search}
-            facets={data?.facets}
-            onChange={onChange}
-            hide={hide}
-          />
+          <FilterSidebar search={search} facets={data?.facets} onChange={onChange} hide={hide} />
         </div>
       </div>
 

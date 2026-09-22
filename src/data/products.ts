@@ -131,7 +131,7 @@ const seeds: Seed[] = [
   },
   {
     id: "p-008",
-    name: "Ultrabook 14\" 16GB / 512GB",
+    name: 'Ultrabook 14" 16GB / 512GB',
     image: img("photo-1517336714731-489689fd1ca8"),
     price: 949,
     compareAtPrice: 1199,
@@ -221,7 +221,7 @@ const seeds: Seed[] = [
   },
   {
     id: "p-014",
-    name: "Pro Tablet 11\" Wi-Fi",
+    name: 'Pro Tablet 11" Wi-Fi',
     image: img("photo-1523170335258-f5ed11844a49"),
     price: 529,
     compareAtPrice: 649,
@@ -329,7 +329,11 @@ const SIZE_SETS: Record<string, string[]> = {
   "cat-sports": ["S", "M", "L", "XL"],
 };
 
-const gallery = ["photo-1523275335684-37898b6baf30", "photo-1526170375885-4d8ecf77b99f", "photo-1560343090-f0409e92791a"];
+const gallery = [
+  "photo-1523275335684-37898b6baf30",
+  "photo-1526170375885-4d8ecf77b99f",
+  "photo-1560343090-f0409e92791a",
+];
 
 export const products: Product[] = seeds.map((s, i) => {
   const brands = BRANDS[s.categoryId] ?? ["Marketplace"];
