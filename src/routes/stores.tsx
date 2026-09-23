@@ -33,7 +33,7 @@ function StoresPage() {
         <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
           {vendors.length} independent sellers, each rated by real customers.
         </p>
-        <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
           {vendors.map((v) => (
             <StoreCard key={v.id} vendor={v} />
           ))}

@@ -46,7 +46,7 @@ export function HeroSlider() {
 
   return (
     <section className="relative w-full">
-      <div className="relative h-[480px] sm:h-[600px] lg:h-[700px] w-full">
+      <div className="relative h-[400px] sm:h-[500px] lg:h-[600px] w-full">
         {slides.map((s, i) => (
           <div
             key={s.id}
@@ -61,18 +61,18 @@ export function HeroSlider() {
               className="size-full object-cover"
               loading={i === 0 ? "eager" : "lazy"}
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
-            <div className="absolute inset-0 flex flex-col justify-center px-6 sm:px-12 lg:px-24 xl:px-32 max-w-4xl gap-4">
-              <span className="w-fit rounded-full bg-primary px-4 py-1.5 text-xs font-bold uppercase tracking-[0.14em] text-primary-foreground">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/20 sm:bg-gradient-to-r sm:from-black/80 sm:via-black/50 sm:to-transparent" />
+            <div className="absolute inset-0 flex flex-col justify-center px-6 sm:px-12 lg:px-24 xl:px-32 max-w-4xl gap-3 sm:gap-4">
+              <span className="w-fit rounded-full bg-primary px-3 sm:px-4 py-1 sm:py-1.5 text-[10px] sm:text-xs font-bold uppercase tracking-[0.14em] text-primary-foreground">
                 {s.eyebrow}
               </span>
-              <h1 className="text-3xl font-bold leading-tight text-white sm:text-5xl lg:text-6xl">
+              <h1 className="text-2xl font-bold leading-tight text-white sm:text-4xl lg:text-6xl">
                 {s.title}
               </h1>
-              <p className="max-w-md text-base text-white/90 sm:text-lg">{s.copy}</p>
+              <p className="max-w-md text-sm text-white/90 sm:text-lg">{s.copy}</p>
               <a
                 href="/deals"
-                className="group mt-4 flex w-fit items-center gap-2 rounded-full bg-primary px-8 py-3.5 text-base font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+                className="group mt-2 sm:mt-4 flex w-fit items-center gap-2 rounded-full bg-primary px-6 sm:px-8 py-2.5 sm:py-3.5 text-sm sm:text-base font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
               >
                 {s.cta}
                 <ArrowRight
@@ -88,7 +88,7 @@ export function HeroSlider() {
           type="button"
           aria-label="Previous slide"
           onClick={() => go(-1)}
-          className="absolute left-4 top-1/2 grid size-12 -translate-y-1/2 place-items-center rounded-full bg-black/20 text-white backdrop-blur transition-colors hover:bg-black/40 sm:left-6"
+          className="absolute left-4 top-1/2 hidden size-12 -translate-y-1/2 place-items-center rounded-full bg-black/20 text-white backdrop-blur transition-colors hover:bg-black/40 md:grid sm:left-6"
         >
           <ChevronLeft className="size-6" strokeWidth={2} />
         </button>
@@ -96,11 +96,11 @@ export function HeroSlider() {
           type="button"
           aria-label="Next slide"
           onClick={() => go(1)}
-          className="absolute right-4 top-1/2 grid size-12 -translate-y-1/2 place-items-center rounded-full bg-black/20 text-white backdrop-blur transition-colors hover:bg-black/40 sm:right-6"
+          className="absolute right-4 top-1/2 hidden size-12 -translate-y-1/2 place-items-center rounded-full bg-black/20 text-white backdrop-blur transition-colors hover:bg-black/40 md:grid sm:right-6"
         >
           <ChevronRight className="size-6" strokeWidth={2} />
         </button>
-        <div className="absolute bottom-24 left-6 flex gap-2 sm:left-12 lg:left-24 xl:left-32">
+        <div className="absolute bottom-6 sm:bottom-12 left-6 flex gap-2 sm:left-12 lg:left-24 xl:left-32">
           {slides.map((s, i) => (
             <button
               key={s.id}

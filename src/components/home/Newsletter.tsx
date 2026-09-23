@@ -6,7 +6,7 @@ export function Newsletter() {
   const [email, setEmail] = useState("");
 
   return (
-    <section className="border-t border-border bg-ink">
+    <section className="mt-14 lg:mt-24 border-t border-border bg-ink">
       <div className="shell py-16 sm:py-24">
         <div className="mx-auto max-w-2xl text-center">
           <div className="mx-auto mb-6 grid size-12 place-items-center rounded-2xl bg-white/10 text-white">

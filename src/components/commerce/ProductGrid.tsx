@@ -9,7 +9,7 @@ export function ProductGrid({
   loading = false,
   error = false,
   onReset,
-  columns = 4,
+  columns = 5,
 }: {
   products: Product[];
   view?: "grid" | "list";
@@ -31,14 +31,8 @@ export function ProductGrid({
 
   if (loading) {
     return (
-      <div
-        className={
-          columns === 5
-            ? "grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5"
-            : "grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4"
-        }
-      >
-        <ProductSkeletonGrid count={8} />
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+        <ProductSkeletonGrid count={10} />
       </div>
     );
   }
@@ -75,13 +69,7 @@ export function ProductGrid({
   }
 
   return (
-    <div
-      className={
-        columns === 5
-          ? "grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5"
-          : "grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4"
-      }
-    >
+    <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
       {products.map((p) => (
         <ProductCard key={p.id} product={p} />
       ))}

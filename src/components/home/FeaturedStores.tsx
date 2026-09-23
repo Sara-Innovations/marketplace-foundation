@@ -18,7 +18,7 @@ export function FeaturedStores() {
         description="Top-rated independent vendors shipping worldwide."
         href="/stores"
       />
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
         {data
           ? data.map((v) => <StoreCard key={v.id} vendor={v} />)
           : Array.from({ length: 4 }).map((_, i) => (

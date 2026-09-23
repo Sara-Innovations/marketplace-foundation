@@ -1,3 +1,9 @@
+export type CategoryChild = string | {
+  name: string;
+  slug?: string;
+  children?: CategoryChild[];
+};
+
 export type Category = {
   id: string;
   name: string;
@@ -6,7 +12,7 @@ export type Category = {
   itemCount: number;
   description?: string;
   banner?: string;
-  children?: string[];
+  children?: CategoryChild[];
 };
 
 export type Vendor = {

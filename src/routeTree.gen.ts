@@ -16,6 +16,7 @@ import { Route as BestSellersRouteImport } from './routes/best-sellers'
 import { Route as CartRouteImport } from './routes/cart'
 import { Route as CheckoutRouteImport } from './routes/checkout'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as DealsRouteImport } from './routes/deals'
 import { Route as FlashSaleRouteImport } from './routes/flash-sale'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as HelpRouteImport } from './routes/help'
@@ -74,6 +75,11 @@ const CheckoutRoute = CheckoutRouteImport.update({
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DealsRoute = DealsRouteImport.update({
+  id: '/deals',
+  path: '/deals',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FlashSaleRoute = FlashSaleRouteImport.update({
@@ -205,6 +211,7 @@ export interface FileRoutesByFullPath {
   '/cart': typeof CartRoute
   '/checkout': typeof CheckoutRoute
   '/contact': typeof ContactRoute
+  '/deals': typeof DealsRoute
   '/flash-sale': typeof FlashSaleRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/help': typeof HelpRoute
@@ -237,6 +244,7 @@ export interface FileRoutesByTo {
   '/cart': typeof CartRoute
   '/checkout': typeof CheckoutRoute
   '/contact': typeof ContactRoute
+  '/deals': typeof DealsRoute
   '/flash-sale': typeof FlashSaleRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/help': typeof HelpRoute
@@ -271,6 +279,7 @@ export interface FileRoutesById {
   '/cart': typeof CartRoute
   '/checkout': typeof CheckoutRoute
   '/contact': typeof ContactRoute
+  '/deals': typeof DealsRoute
   '/flash-sale': typeof FlashSaleRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/help': typeof HelpRoute
@@ -306,6 +315,7 @@ export interface FileRouteTypes {
     | '/cart'
     | '/checkout'
     | '/contact'
+    | '/deals'
     | '/flash-sale'
     | '/forgot-password'
     | '/help'
@@ -338,6 +348,7 @@ export interface FileRouteTypes {
     | '/cart'
     | '/checkout'
     | '/contact'
+    | '/deals'
     | '/flash-sale'
     | '/forgot-password'
     | '/help'
@@ -371,6 +382,7 @@ export interface FileRouteTypes {
     | '/cart'
     | '/checkout'
     | '/contact'
+    | '/deals'
     | '/flash-sale'
     | '/forgot-password'
     | '/help'
@@ -405,6 +417,7 @@ export interface RootRouteChildren {
   CartRoute: typeof CartRoute
   CheckoutRoute: typeof CheckoutRoute
   ContactRoute: typeof ContactRoute
+  DealsRoute: typeof DealsRoute
   FlashSaleRoute: typeof FlashSaleRoute
   ForgotPasswordRoute: typeof ForgotPasswordRoute
   HelpRoute: typeof HelpRoute
@@ -473,6 +486,13 @@ declare module '@tanstack/react-router' {
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/deals': {
+      id: '/deals'
+      path: '/deals'
+      fullPath: '/deals'
+      preLoaderRoute: typeof DealsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/flash-sale': {
@@ -687,6 +707,7 @@ const rootRouteChildren: RootRouteChildren = {
   CartRoute: CartRoute,
   CheckoutRoute: CheckoutRoute,
   ContactRoute: ContactRoute,
+  DealsRoute: DealsRoute,
   FlashSaleRoute: FlashSaleRoute,
   ForgotPasswordRoute: ForgotPasswordRoute,
   HelpRoute: HelpRoute,

@@ -40,7 +40,7 @@ export function FloatingCartDrawer() {
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
         <button
-          className="fixed right-0 top-1/2 z-40 flex -translate-y-1/2 flex-col items-center overflow-hidden rounded-l-lg border border-r-0 border-border bg-card shadow-xl transition-transform hover:-translate-x-1"
+          className="fixed right-0 top-1/2 z-40 hidden md:flex -translate-y-1/2 flex-col items-center overflow-hidden rounded-l-lg border border-r-0 border-border bg-card shadow-xl transition-transform hover:-translate-x-1"
           aria-label="Open cart"
         >
           <div className="bg-primary w-full p-3 text-primary-foreground flex justify-center">

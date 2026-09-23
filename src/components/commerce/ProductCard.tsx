@@ -60,11 +60,12 @@ export function ProductCard({
       type="button"
       aria-label={wishlisted ? "Remove from wishlist" : "Save to wishlist"}
       aria-pressed={wishlisted}
-      onClick={() => {
+      onClick={(e) => {
+        e.preventDefault();
         toggleWishlist(product.id);
         toast(wishlisted ? "Removed from wishlist" : "Saved to wishlist");
       }}
-      className="grid size-9 place-items-center rounded-full bg-card/90 text-foreground shadow-card backdrop-blur transition-colors hover:bg-card"
+      className="grid size-9 cursor-pointer place-items-center rounded-full bg-card/90 text-foreground shadow-card backdrop-blur transition-all duration-200 hover:scale-110 hover:bg-primary hover:text-primary-foreground active:scale-95"
     >
       <Heart className={cn("size-4", wishlisted && "fill-sale text-sale")} strokeWidth={1.8} />
     </button>
@@ -78,7 +79,7 @@ export function ProductCard({
         addItem({ productId: product.id, quantity: 1 });
         toast.success("Added to cart", { description: product.name });
       }}
-      className="flex items-center justify-center gap-2 rounded-lg bg-primary px-3 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+      className="flex cursor-pointer items-center justify-center gap-2 rounded-lg bg-primary px-3 py-2.5 text-sm font-semibold text-primary-foreground transition-all duration-200 hover:scale-[1.02] hover:bg-primary/90 hover:shadow-lg active:scale-95"
     >
       <ShoppingCart className="size-4" strokeWidth={2} />
       Add to cart

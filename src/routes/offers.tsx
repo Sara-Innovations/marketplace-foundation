@@ -113,7 +113,7 @@ function OffersPage() {
               View All
             </Link>
           </div>
-          <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
             {discountedProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
@@ -127,7 +127,7 @@ function OffersPage() {
               Store Offers
             </h2>
           </div>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
             {featuredStores.map((store) => (
               <StoreCard key={store.id} vendor={store} />
             ))}
@@ -141,7 +141,7 @@ function OffersPage() {
               Category Deals
             </h2>
           </div>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
             {promoCategories.map((category) => (
               <Link
                 key={category.id}

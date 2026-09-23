@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import {
   ChevronDown,
+  ChevronRight,
   Heart,
   Menu,
   Search,
@@ -23,6 +24,60 @@ import { useCartCount, useWishlistCount } from "@/store/useCart";
 import { useAuth } from "@/store/useAuth";
 import { usePreferences } from "@/store/usePreferences";
 import { cn } from "@/lib/utils";
+
+function DropdownItem({ item, parentSlug }: { item: any; parentSlug?: string }) {
+  const [isOpen, setIsOpen] = useState(false);
+  
+  const isString = typeof item === 'string';
+  const label = isString ? item : item.name;
+  const hasChildren = !isString && item.children && item.children.length > 0;
+  
+  return (
+    <div 
+      className="relative"
+      onMouseEnter={() => setIsOpen(true)}
+      onMouseLeave={() => setIsOpen(false)}
+    >
+      <Link
+        to="/category/$slug"
+        params={{ slug: isString ? (parentSlug || 'all') : item.slug }}
+        search={isString ? { subcategory: item } : undefined}
+        className={cn(
+          "flex items-center justify-between px-4 py-2.5 text-sm transition-colors bg-white border-b border-border/40 last:border-0",
+          isOpen ? "bg-primary/5 text-primary" : "text-foreground hover:text-primary"
+        )}
+      >
+        <span>{label}</span>
+        {hasChildren && (
+          <ChevronRight
+            className={cn("size-4", isOpen ? "text-primary" : "text-muted-foreground")}
+            strokeWidth={1.8}
+          />
+        )}
+      </Link>
+      
+      {isOpen && hasChildren && (
+        <div className="absolute left-full top-0 w-[280px] bg-white border border-border shadow-lift z-50">
+          {item.children.map((child: any, idx: number) => (
+            <DropdownItem key={idx} item={child} parentSlug={item.slug} />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function MultiLevelMenu({ categories }: { categories: any[] }) {
+  return (
+    <div className="absolute left-0 top-full z-50 w-[280px] bg-white border border-border shadow-lift flex flex-col">
+      {categories.map((c, i) => (
+        <DropdownItem key={c.id || i} item={c} />
+      ))}
+    </div>
+  );
+}
+
+
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import {
   DropdownMenu,
@@ -253,6 +308,7 @@ export function Header() {
   useEffect(() => setMounted(true), []);
 
   return (
+    <>
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/75">
       <AnnouncementBar />
       <div className="hidden bg-ink text-ink-foreground/80 md:block">
@@ -312,7 +368,7 @@ export function Header() {
           </button>
         </div>
 
-        <div className="ml-auto flex items-center gap-1 lg:ml-0 lg:gap-2">
+        <div className="ml-auto hidden md:flex items-center gap-1 lg:ml-0 lg:gap-2">
           <Link
             to="/account/wishlist"
             aria-label="Wishlist"
@@ -359,31 +415,15 @@ export function Header() {
           >
             <button
               type="button"
-              className="flex items-center gap-2 rounded-lg bg-surface px-3 py-1.5 font-semibold"
+              className="flex items-center gap-2 rounded-t-lg bg-surface px-3 py-1.5 font-semibold transition-colors data-[state=open]:bg-white data-[state=open]:shadow-sm"
+              data-state={catOpen ? "open" : "closed"}
               aria-expanded={catOpen}
             >
-              <Menu className="size-4" strokeWidth={2} /> Categories
-              <ChevronDown
-                className={cn("size-4 transition-transform", catOpen && "rotate-180")}
-                strokeWidth={2}
-              />
+              <Menu className="size-4 text-primary" strokeWidth={2} /> 
+              <span className="text-primary font-bold uppercase tracking-wider text-xs">Categories</span>
             </button>
             {catOpen && (
-              <div className="absolute left-0 top-full z-50 grid w-[640px] grid-cols-2 gap-1 rounded-xl border border-border bg-popover p-3 shadow-lift">
-                {categories.map((c) => (
-                  <Link
-                    key={c.id}
-                    to="/category/$slug"
-                    params={{ slug: c.slug }}
-                    className="rounded-lg px-3 py-2 transition-colors hover:bg-surface"
-                  >
-                    <span className="block text-sm font-semibold">{c.name}</span>
-                    <span className="block text-xs text-muted-foreground">
-                      {c.children?.join(" · ")}
-                    </span>
-                  </Link>
-                ))}
-              </div>
+              <MultiLevelMenu categories={categories} />
             )}
           </div>
           {navLinks.map((l) => (
@@ -397,80 +437,81 @@ export function Header() {
           ))}
         </div>
       </nav>
+    </header>
 
-      {/* Mobile drawer */}
-      {menuOpen && (
-        <div className="fixed inset-0 z-50 lg:hidden">
-          <div
-            className="absolute inset-0 bg-ink/50"
-            onClick={() => setMenuOpen(false)}
-            aria-hidden
-          />
-          <div className="absolute inset-y-0 left-0 flex w-[85%] max-w-sm flex-col overflow-y-auto bg-background p-5 shadow-lift">
-            <div className="flex items-center justify-between">
-              <span className="font-display text-lg font-bold">Menu</span>
-              <button
-                type="button"
-                aria-label="Close menu"
-                onClick={() => setMenuOpen(false)}
-                className="grid size-9 place-items-center rounded-lg border border-border"
-              >
-                <X className="size-5" strokeWidth={1.8} />
-              </button>
-            </div>
+    {/* Mobile drawer (Moved outside header to prevent backdrop-blur clipping) */}
+    {menuOpen && (
+      <div className="fixed inset-0 z-[100] lg:hidden">
+        <div
+          className="absolute inset-0 bg-ink/50"
+          onClick={() => setMenuOpen(false)}
+          aria-hidden
+        />
+        <div className="absolute inset-y-0 left-0 flex w-[85%] max-w-sm flex-col overflow-y-auto bg-background p-5 shadow-lift">
+          <div className="flex items-center justify-between">
+            <span className="font-display text-lg font-bold">Menu</span>
+            <button
+              type="button"
+              aria-label="Close menu"
+              onClick={() => setMenuOpen(false)}
+              className="grid size-9 place-items-center rounded-lg border border-border"
+            >
+              <X className="size-5" strokeWidth={1.8} />
+            </button>
+          </div>
 
-            <p className="mt-6 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-              Explore
-            </p>
-            <div className="mt-2 flex flex-col">
-              {navLinks.map((l) => (
-                <Link
-                  key={l.href}
-                  to={l.href}
-                  onClick={() => setMenuOpen(false)}
-                  className="border-b border-border py-3 text-sm font-medium"
-                >
-                  {l.label}
-                </Link>
-              ))}
+          <p className="mt-6 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+            Explore
+          </p>
+          <div className="mt-2 flex flex-col">
+            {navLinks.map((l) => (
               <Link
-                to="/track-order"
+                key={l.href}
+                to={l.href}
                 onClick={() => setMenuOpen(false)}
                 className="border-b border-border py-3 text-sm font-medium"
               >
-                Track Order
+                {l.label}
               </Link>
-            </div>
-
-            <p className="mt-6 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-              Categories
-            </p>
-            <div className="mt-2 flex flex-col">
-              {categories.map((c) => (
-                <Link
-                  key={c.id}
-                  to="/category/$slug"
-                  params={{ slug: c.slug }}
-                  onClick={() => setMenuOpen(false)}
-                  className="border-b border-border py-3 text-sm font-medium"
-                >
-                  {c.name}
-                </Link>
-              ))}
-            </div>
-
-            <div className="mt-6">{mounted && <CurrencyLanguageSelector />}</div>
-
+            ))}
             <Link
-              to="/login"
+              to="/track-order"
               onClick={() => setMenuOpen(false)}
-              className="mt-6 rounded-lg bg-primary py-3 text-center text-sm font-semibold text-primary-foreground"
+              className="border-b border-border py-3 text-sm font-medium"
             >
-              Sign in to Account
+              Track Order
             </Link>
           </div>
+
+          <p className="mt-6 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+            Categories
+          </p>
+          <div className="mt-2 flex flex-col">
+            {categories.map((c) => (
+              <Link
+                key={c.id}
+                to="/category/$slug"
+                params={{ slug: c.slug }}
+                onClick={() => setMenuOpen(false)}
+                className="border-b border-border py-3 text-sm font-medium"
+              >
+                {c.name}
+              </Link>
+            ))}
+          </div>
+
+          <div className="mt-6">{mounted && <CurrencyLanguageSelector />}</div>
+
+          <Link
+            to="/login"
+            onClick={() => setMenuOpen(false)}
+            className="mt-6 mb-16 rounded-lg bg-primary py-3 text-center text-sm font-semibold text-primary-foreground"
+          >
+            Sign in to Account
+          </Link>
         </div>
-      )}
-    </header>
+      </div>
+    )}
+    </>
   );
 }

@@ -43,6 +43,7 @@ function Index() {
           title="Trending products"
           description="What shoppers are adding to cart this week."
           href="/trending"
+          variant="carousel"
         />
         <ProductSection
           filter="best-seller"
@@ -59,6 +60,7 @@ function Index() {
           title="New arrivals"
           description="Fresh listings from stores you'll want to follow."
           href="/new"
+          variant="carousel"
         />
         <ProductSection
           filter="best-seller"

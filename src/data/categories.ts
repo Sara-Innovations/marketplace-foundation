@@ -9,7 +9,21 @@ export const categories: Category[] = [
     slug: "electronics",
     image: img("photo-1498049794561-7780e7231661"),
     itemCount: 12840,
-    children: ["Audio", "Phones", "Laptops", "Cameras", "Wearables"],
+    children: [
+      "Audio",
+      {
+        name: "Phones",
+        slug: "phones",
+        children: ["Apple", "Samsung", "Google", "OnePlus"],
+      },
+      {
+        name: "Laptops",
+        slug: "laptops",
+        children: ["MacBooks", "Gaming Laptops", "Ultrabooks"],
+      },
+      "Cameras",
+      "Wearables",
+    ],
   },
   {
     id: "cat-fashion",
@@ -17,7 +31,19 @@ export const categories: Category[] = [
     slug: "fashion",
     image: img("photo-1483985988355-763728e1935b"),
     itemCount: 24310,
-    children: ["Men", "Women", "Shoes", "Bags", "Watches"],
+    children: [
+      {
+        name: "Men",
+        slug: "men",
+        children: ["Shirts", "T-Shirts", "Pants", "Shoes"],
+      },
+      {
+        name: "Women",
+        slug: "women",
+        children: ["Dresses", "Tops", "Skirts", "Shoes", "Bags"],
+      },
+      "Watches",
+    ],
   },
   {
     id: "cat-home",
@@ -57,7 +83,8 @@ export const categories: Category[] = [
     slug: "grocery",
     image: img("photo-1542838132-92c53300491e"),
     itemCount: 7460,
-    children: ["Coffee", "Snacks", "Organic"],
+    // Empty array or undefined means no children (1st level only)
+    children: [], 
   },
   {
     id: "cat-auto",
@@ -65,6 +92,6 @@ export const categories: Category[] = [
     slug: "automotive",
     image: img("photo-1492144534655-ae79c964c9d7"),
     itemCount: 2870,
-    children: ["Accessories", "Care", "Tools"],
+    // No children defined at all
   },
 ];
